@@ -104,6 +104,24 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('offer', (data) => {
+    console.log('Offer received:', data);
+    socket.broadcast.emit('offer', data); // Phát offer đến các client khác
+  });
+
+  // Khi nhận answer từ client
+  socket.on('answer', (data) => {
+    console.log('Answer received:', data);
+    socket.broadcast.emit('answer', data); // Phát answer đến các client khác
+  });
+
+  // Khi nhận ICE Candidate
+  socket.on('candidate', (data) => {
+    console.log('Candidate received:', data);
+    socket.broadcast.emit('candidate', data); // Phát candidate đến các client khác
+  });
+
+
   // Handle disconnection
   socket.on('disconnect', () => {
     console.log(`User disconnected: ${socket.id}`);
