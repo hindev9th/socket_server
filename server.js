@@ -3,6 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
+const { log } = require('console');
 
 const app = express();
 const server = http.createServer(app);
@@ -59,7 +60,6 @@ io.on('connection', (socket) => {
 
     // Notify other members in the group
     socket.to(group.id).emit('notification', `User ${group.username} has joined`);
-    socket.to(group.id).emit('member-join');
 
     users[socket.id] = {
       username: group.username
@@ -73,6 +73,8 @@ io.on('connection', (socket) => {
         name: group.username
       }
     });
+    socket.to(group.id).emit('member-join');
+
   });
 
   // Handle sending messages to a group
@@ -127,6 +129,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('offer-group', (group) => {
+    console.log('offer-group', group);
+
     socket.to(group.id).emit('offer-group', group.data);
   });
 
@@ -141,7 +145,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('offer', (group) => {
-    socket.to(group.id).emit('offer', group.data);
+    socket.broadcast.emit('offer', group.data);
   });
 
   // Khi nhận answer từ client
