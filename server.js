@@ -144,8 +144,8 @@ io.on('connection', (socket) => {
     socket.to(group.id).emit('candidate-group', group.data); // Phát candidate đến các client group 
   });
 
-  socket.on('offer', (group) => {
-    socket.broadcast.emit('offer', group.data);
+  socket.on('offer', (data) => {
+    socket.broadcast.emit('offer', data);
   });
 
   // Khi nhận answer từ client
