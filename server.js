@@ -59,6 +59,7 @@ io.on('connection', (socket) => {
 
     // Notify other members in the group
     socket.to(group.id).emit('notification', `User ${group.username} has joined`);
+    socket.to(group.id).emit('member-join');
 
     users[socket.id] = {
       username: group.username
