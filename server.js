@@ -77,6 +77,10 @@ io.on('connection', (socket) => {
 
   });
 
+  socket.on('request-offer', () => {
+    socket.to(group.id).emit('request-offer');
+  })
+
   // Handle sending messages to a group
   socket.on('group-message', ({ group, message }) => {
     if (!group) {
