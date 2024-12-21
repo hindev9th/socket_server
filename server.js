@@ -77,7 +77,7 @@ io.on('connection', (socket) => {
 
   });
 
-  socket.on('request-offer', () => {
+  socket.on('request-offer', (group) => {
     socket.to(group.id).emit('request-offer');
   })
 
