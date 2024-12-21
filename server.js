@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
       status: 200,
       message: 'Join success.',
       data: {
-        id: socket.id,
+        id: group.id,
         name: group.username
       }
     });
